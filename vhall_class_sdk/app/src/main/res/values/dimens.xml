@@ -1,0 +1,32 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="edittext_padding">5dp</dimen>
+    <dimen name="string_size_12">12dp</dimen>
+    <dimen name="string_size_14">14dp</dimen>
+    <dimen name="string_size_16">16dp</dimen>
+    <dimen name="common_title_size">18dp</dimen>
+    <dimen name="space_size_10">8dp</dimen>
+
+    <dimen name="common_line_padding">5dp</dimen>
+    <dimen name="common_drawable_padding_4dp">6dp</dimen>
+    <dimen name="common_drawable_padding_8dp">8dp</dimen>
+    <dimen name="big_line_padding">20dp</dimen>
+
+    <dimen name="common_button_textsize">17dp</dimen>
+
+    <dimen name="common_broder_1">1dp</dimen>
+    <dimen name="common_broder_2">2dp</dimen>
+    <dimen name="common_broder_5">5dp</dimen>
+    <dimen name="common_broder_8">8dp</dimen>
+    <dimen name="common_broder_10">10dp</dimen>
+    <dimen name="common_broder_15">15dp</dimen>
+    <dimen name="common_broder_20">20dp</dimen>
+    <dimen name="common_broder_30">30dp</dimen>
+    <dimen name="common_broder_50">50dp</dimen>
+
+
+</resources>

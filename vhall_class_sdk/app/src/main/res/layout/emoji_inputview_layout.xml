@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f5f5f5"
+        android:gravity="center_vertical"
+        android:padding="2dp">
+
+        <ImageView
+            android:id="@+id/iv_emoji"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="8dp"
+            android:src="@mipmap/vhall_class_chat_em_button_default" />
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_common_rounded_white_border_white_board"
+            android:imeOptions="flagNoExtractUi|actionSend"
+            android:padding="10dp"
+            android:hint="讨论输入"
+            android:singleLine="true"
+            android:textColor="#B5B5B5"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tv_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_common_rounded_green"
+            android:layout_marginLeft="@dimen/common_broder_5"
+            android:layout_marginRight="@dimen/common_broder_5"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="@dimen/common_broder_10"
+            android:paddingBottom="@dimen/common_broder_10"
+            android:text="发送"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_emoji"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:visibility="gone" />
+
+
+</LinearLayout>

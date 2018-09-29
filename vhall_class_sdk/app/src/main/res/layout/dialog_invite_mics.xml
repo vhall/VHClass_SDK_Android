@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/layout_contact_notice_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F9F9F9"
+            android:gravity="center"
+            android:paddingBottom="@dimen/common_broder_15"
+            android:paddingTop="@dimen/common_broder_15"
+            android:text="@string/Class_Invite_Mics"
+            android:textColor="@color/common_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/common_line_divide" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_broder_10"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_class_mics_sure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="@dimen/common_broder_10"
+                android:paddingTop="@dimen/common_broder_10"
+                android:text="@string/Class_Mics"
+                android:textColor="@color/common_text_color" />
+            <!--android:background="@drawable/bg_mic_click_status_green"-->
+            <TextView
+                android:id="@+id/text_class_mics_audio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_broder_15"
+                android:gravity="center"
+                android:paddingBottom="@dimen/common_broder_15"
+                android:paddingTop="@dimen/common_broder_10"
+                android:text="@string/Class_Mics_Only_Audio"
+                android:textColor="@color/common_text_color"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/text_class_mics_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_broder_15"
+                android:gravity="center"
+                android:paddingBottom="@dimen/common_broder_10"
+                android:paddingTop="@dimen/common_broder_10"
+                android:text="@string/Class_Mics_No"
+                android:textColor="@color/common_text_color" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

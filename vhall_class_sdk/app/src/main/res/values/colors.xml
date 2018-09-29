@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#ffffff</color>
+    <color name="common_text_color">#444444</color>
+    <color name="common_line_divide">#E5E5E5</color>
+    <color name="common_class_green">#52CC90</color>
+    <color name="gray_normal">#9c9ca0</color>
+
+    <color name="class_back_bar_background">#E5202020</color>
+    <color name="common_class_green_transparent_70">#B252CC90</color>
+</resources>

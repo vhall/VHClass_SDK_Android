@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_itease_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/layout_chat_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/common_broder_5"
+        android:paddingLeft="@dimen/common_broder_8"
+        android:paddingRight="@dimen/common_broder_8"
+        android:paddingTop="@dimen/common_broder_5">
+
+        <ImageView
+            android:id="@+id/iv_chat_avatar"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@mipmap/vhall_class_chat_student_default" />
+
+        <LinearLayout
+            android:id="@+id/chat_layout_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_broder_10"
+            android:layout_toRightOf="@id/iv_chat_avatar"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/image_chat_role"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/vhall_class_techer" />
+
+            <TextView
+                android:id="@+id/tv_chat_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_broder_5"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="name @you"
+                android:textColor="#666666"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_chat_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/chat_layout_info"
+            android:layout_marginLeft="@dimen/common_broder_5"
+            android:layout_marginRight="48dp"
+            android:layout_marginTop="@dimen/common_broder_5"
+            android:layout_toRightOf="@+id/iv_chat_avatar"
+            android:background="@drawable/chat_other"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:paddingBottom="@dimen/common_broder_5"
+            android:paddingLeft="@dimen/common_broder_15"
+            android:paddingRight="@dimen/common_broder_10"
+            android:paddingTop="@dimen/common_broder_5"
+            android:text="awdawdawdawd"
+            android:textColor="@color/common_text_color"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_chat_right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/common_broder_5"
+        android:paddingLeft="@dimen/common_broder_8"
+        android:paddingRight="@dimen/common_broder_10"
+        android:paddingTop="@dimen/common_broder_5"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_chat_avatar_self"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/vhall_class_chat_student_default" />
+
+        <LinearLayout
+            android:id="@+id/chat_layout_info_self"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/common_broder_5"
+            android:layout_toLeftOf="@id/iv_chat_avatar_self"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_chat_name_self"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/common_broder_5"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="name @you"
+                android:textColor="#666666"
+                android:textSize="12dp" />
+
+            <ImageView
+                android:id="@+id/image_chat_role_self"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/vhall_class_techer" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_chat_content_self"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/chat_layout_info_self"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="@dimen/common_broder_5"
+            android:layout_marginTop="@dimen/common_broder_5"
+            android:layout_toLeftOf="@+id/iv_chat_avatar_self"
+            android:background="@drawable/chat_self"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:paddingBottom="@dimen/common_broder_5"
+            android:paddingLeft="@dimen/common_broder_10"
+            android:paddingRight="@dimen/common_broder_15"
+            android:paddingTop="@dimen/common_broder_5"
+            android:textColor="@color/common_text_color"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
+
+

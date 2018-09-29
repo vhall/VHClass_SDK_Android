@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/widget_layout_softboard">
+
+        <ListView
+            android:id="@+id/lv_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:divider="@null"
+            android:transcriptMode="alwaysScroll"></ListView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/widget_layout_softboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#f5f5f5"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/common_broder_2">
+
+        <ImageView
+            android:id="@+id/widget_layout_emo"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="@dimen/common_broder_10"
+            android:padding="@dimen/common_broder_1"
+            android:src="@mipmap/vhall_class_chat_em_button_default"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_class_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_common_rounded_white_border_white"
+            android:padding="@dimen/common_broder_10"
+            android:text="讨论输入"
+            android:textColor="#B5B5B5"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_broder_5"
+            android:layout_marginRight="@dimen/common_broder_10"
+            android:background="@drawable/bg_common_rounded_green"
+            android:paddingBottom="@dimen/common_broder_5"
+            android:paddingLeft="@dimen/common_broder_20"
+            android:paddingRight="@dimen/common_broder_20"
+            android:paddingTop="@dimen/common_broder_5"
+            android:text="发送"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

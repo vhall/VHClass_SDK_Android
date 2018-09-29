@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">VHClassSdk</string>
+    <string name="app_name_demo">微吼课堂</string>
+    <string name="input_class_id">请输入课堂ID</string>
+    <string name="input_check">口令</string>
+    <string name="input_name">昵称</string>
+    <string name="next">下一步</string>
+    <string name="enter">进入</string>
+    <string name="Class_Invite_Mics">讲师正在邀请你上麦,请确认</string>
+    <string name="Class_Mics">上麦</string>
+    <string name="Class_Mics_No">拒绝</string>
+    <string name="Class_Mics_Only_Audio">语音上麦</string>
+</resources>

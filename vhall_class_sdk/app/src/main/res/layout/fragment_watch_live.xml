@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.vhall.watchlive.play.BasicVideoPlayer
+        android:id="@+id/player"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="@dimen/common_broder_50"
+            android:layout_height="@dimen/common_broder_50"
+            android:padding="@dimen/common_broder_10"
+            android:src="@mipmap/icon_back"/>
+
+        <TextView
+            android:id="@+id/text_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_alignParentRight="true"
+            android:textColor="@android:color/holo_red_dark" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/image_play"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@mipmap/vhall_icon_live_play" />
+
+        <ImageView
+            android:id="@+id/switch_draw_mode"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/img_round_camera" />
+
+        <LinearLayout
+            android:id="@+id/linear_button_container_live"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.vhall.classsdk.demo.widget.CircleView
+            android:id="@+id/watch_live_openhand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/icon_upper" />
+
+        <!--<ImageView-->
+        <!--android:id="@+id/watch_live_openhand"-->
+        <!--android:layout_width="35dp"-->
+        <!--android:layout_height="35dp"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:gravity="right"-->
+        <!--android:src="@mipmap/vhall_class_open_hand_x2" />-->
+
+    </LinearLayout>
+
+</RelativeLayout>
