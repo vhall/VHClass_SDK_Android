@@ -21,6 +21,11 @@ android {
             dirs 'libs'
         }
     }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -30,5 +35,5 @@ dependencies {
         exclude group: 'org.json', module: 'json'
     }
     api "com.github.bumptech.glide:glide:${GLIDE_VERSION}"
-    api(name:'VHClassSDK@V1.0_20180929_Release', ext:'aar')
+    api(name:'VHClassSDK@V1.1_20181018_Release', ext:'aar')
 }

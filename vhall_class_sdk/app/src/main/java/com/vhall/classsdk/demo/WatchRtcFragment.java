@@ -23,6 +23,8 @@ import com.vhall.vhallrtc.client.VHRenderView;
 import com.vhall.vhrtc.RoomCallback;
 import com.vhall.vhrtc.VHRTC;
 
+import org.webrtc.RendererCommon;
+
 
 public class WatchRtcFragment extends Fragment implements View.OnClickListener {
     public static final String TAG = WatchRtcFragment.class.getName();
@@ -72,7 +74,7 @@ public class WatchRtcFragment extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
         vhrtc = new WatchRTC(mContext, new VHRoomCallback());
         vhRenderView = new VHRenderView(mContext);
-        vhRenderView.setScalingMode(VHRenderView.VHRenderViewScalingMode.kVHRenderViewScalingModeAspectFill);
+        vhRenderView.setScalingType(RendererCommon.ScalingType.SCALE_ASPECT_FIT);
         vhRenderView.init(vhrtc.getEglBase().getEglBaseContext(), null);
         //TODO 常量定义
         vhrtc.setLocalView(vhRenderView, VHRTC.VHRTC_STREAM_AUDIO_AND_VIDEO);
@@ -197,7 +199,7 @@ public class WatchRtcFragment extends Fragment implements View.OnClickListener {
                 public void run() {
                     newRenderView.getHolder().setFormat(PixelFormat.TRANSPARENT);
                     newRenderView.setZOrderMediaOverlay(true);
-                    newRenderView.setScalingMode(VHRenderView.VHRenderViewScalingMode.kVHRenderViewScalingModeAspectFill);
+                    newRenderView.setScalingType(RendererCommon.ScalingType.SCALE_ASPECT_FIT);
                     addStream(newRenderView);
                 }
             });

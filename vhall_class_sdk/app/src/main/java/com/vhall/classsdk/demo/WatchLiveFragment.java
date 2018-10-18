@@ -242,7 +242,6 @@ public class WatchLiveFragment extends Fragment implements View.OnClickListener 
                     showToast(" DPI : " + msg);
                     break;
                 case IVHPlayer.EVENT_VIDEO_SIZE_CHANGED: //获取到视频的尺寸
-//
                     break;
                 case IVHPlayer.EVENT_DOWNLOAD_SPEED:
                     setDownBuffer(msg + "kb/s");
@@ -273,6 +272,7 @@ public class WatchLiveFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onDestroy() {
+        Log.e(TAG , "watchLive destory  " );
         super.onDestroy();
         release();
     }

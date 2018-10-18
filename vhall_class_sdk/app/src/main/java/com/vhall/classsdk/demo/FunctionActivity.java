@@ -121,7 +121,8 @@ public class FunctionActivity extends AppCompatActivity {
                 case MessageServer.EVENT_DELETEBOARD:
                 case MessageServer.EVENT_INITBOARD:
                 case MessageServer.EVENT_PAINTBOARD:
-                    documentFragment.drawDocument(msgInfo);
+                    if (documentFragment != null)
+                        documentFragment.drawDocument(msgInfo);
                     break;
                 // PPT 消息
                 case MessageServer.EVENT_CHANGEDOC://PPT翻页消息

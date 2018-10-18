@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+//        mRoomidView.setText("");
+//        mPwdView.setText("");
+//        mNicknameView.setText("");
         showPage(PAGE_ROOM);
         mCommitView.setOnClickListener(new View.OnClickListener() {
             @Override
