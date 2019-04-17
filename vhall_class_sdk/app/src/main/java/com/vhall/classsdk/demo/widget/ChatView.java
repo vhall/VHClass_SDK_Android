@@ -121,7 +121,7 @@ public class ChatView extends RelativeLayout implements View.OnClickListener {
     public void getWebinarChat(int num) {
         VHClass.getInstance().getChat(num, new ChatServer.ChatRecordCallback() {
             @Override
-            public void onDataLoaded(List<ChatServer.ChatInfo> newList) {
+            public void onDataLoaded(int totalPage,int curPage,List<ChatServer.ChatInfo> newList) {
                 if (newList.size() > 0) {
                     chatAdapter.updateDataSourceList(newList, false);
                 }

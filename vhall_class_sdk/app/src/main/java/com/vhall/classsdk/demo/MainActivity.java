@@ -259,11 +259,23 @@ public class MainActivity extends AppCompatActivity {
         }
         if (webinarInfo.layout == 3) {
             mRoomLayoutView.setText("视频+文档");
-        } else
+        } else {
             mRoomLayoutView.setText("单视频");
-        if (webinarInfo.course_type == 1) {
-            mRoomTypeView.setText("小课堂");
-        } else
-            mRoomTypeView.setText("公开课");
+        }
+        switch (webinarInfo.course_type){
+            case 0:
+                mRoomTypeView.setText("公开课");
+                break;
+            case 1:
+                mRoomTypeView.setText("小课堂");
+                break;
+            case 2:
+                mRoomTypeView.setText("录播课");
+                break;
+            case 3:
+                mRoomTypeView.setText("系列课");
+                break;
+        }
+
     }
 }

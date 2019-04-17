@@ -27,6 +27,7 @@ public class FunctionActivity extends AppCompatActivity {
     private WatchRtcFragment mRTCFrag;
     private ChatFragment chatFragment;
     private DocumentFragment documentFragment;
+    private MyClassCallback classCallback;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,7 +38,8 @@ public class FunctionActivity extends AppCompatActivity {
         mFragmanager = getSupportFragmentManager();
         setContentView(R.layout.activity_function);
         showFunction(function);
-        VHClass.getInstance().setClassCallback(new MyClassCallback());
+        classCallback = new MyClassCallback();
+        VHClass.getInstance().addClassCallback(classCallback);//退出时必须注销监听
     }
 
     //根据功能展示对应Fragmeng
@@ -59,6 +61,7 @@ public class FunctionActivity extends AppCompatActivity {
             case MainActivity.FUC_CHAT:
                 chatFragment = ChatFragment.newInstance();
                 mFragmanager.beginTransaction().replace(R.id.container, chatFragment).commit();
+                VHClass.getInstance().joinChat(new ChatCallback());
                 break;
             case MainActivity.FUC_DOC:
                 documentFragment = DocumentFragment.newInstance();
@@ -70,7 +73,36 @@ public class FunctionActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        VHClass.getInstance().removeClassCallback(classCallback);
         VHClass.getInstance().leaveClass();
+    }
+
+    private class ChatCallback implements ChatServer.Callback {
+
+        @Override
+        public void onChatServerConnected() {
+
+        }
+
+        @Override
+        public void onConnectFailed(String msg) {
+
+        }
+
+        @Override
+        public void onChatMessageReceived(ChatServer.ChatInfo chatInfo) {
+            switch (chatInfo.event) {
+                case IConnectService.eventMsgKey:
+                    if (chatFragment != null)
+                        chatFragment.updateData(chatInfo);
+                    break;
+            }
+        }
+
+        @Override
+        public void onChatServerClosed() {
+
+        }
     }
 
     private class MyClassCallback implements ClassCallback {
@@ -88,8 +120,9 @@ public class FunctionActivity extends AppCompatActivity {
                     if (msgInfo.classStatus.equals(WatchRTC.VHCLASS_RTC_MIC_UP)) {//
                         showMicDialog();
                     } else {
-                        if (mRTCFrag != null)
+                        if (mRTCFrag != null && msgInfo.target_id.equals(VHClass.getInstance().getJoinId())) {
                             mFragmanager.beginTransaction().remove(mRTCFrag).commit();
+                        }
                     }
                     break;
                 case IConnectService.EVENT_KICKOUT:
@@ -111,10 +144,12 @@ public class FunctionActivity extends AppCompatActivity {
                     }
                     break;
                 case IConnectService.EVENT_CLASS_SWITCH_MIC:
-                    if (msgInfo.classStatus.equals(WatchRTC.VHCLASS_RTC_MIC_UP)) {//
-                    } else { // 下麦
-                        mLiveFrag = WatchLiveFragment.newInstance();
-                        mFragmanager.beginTransaction().replace(R.id.container, mLiveFrag).commit();
+                    if (msgInfo.target_id.equals(VHClass.getInstance().getJoinId())) {
+                        if (msgInfo.classStatus.equals(WatchRTC.VHCLASS_RTC_MIC_UP)) {//
+                        } else { // 下麦
+                            mLiveFrag = WatchLiveFragment.newInstance();
+                            mFragmanager.beginTransaction().replace(R.id.container, mLiveFrag).commit();
+                        }
                     }
                     break;
                 case MessageServer.EVENT_CLEARBOARD:
@@ -149,16 +184,6 @@ public class FunctionActivity extends AppCompatActivity {
                     break;
                 case MessageServer.CLASS_EVENT_START: // 上课
                     Toast.makeText(FunctionActivity.this, "上课了", Toast.LENGTH_SHORT).show();
-                    break;
-            }
-        }
-
-        @Override
-        public void onChatReceived(ChatServer.ChatInfo chatInfo) {
-            switch (chatInfo.event) {
-                case IConnectService.eventMsgKey:
-                    if (chatFragment != null)
-                        chatFragment.updateData(chatInfo);
                     break;
             }
         }

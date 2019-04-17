@@ -14,14 +14,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vhall.base.IVHPlayer;
-import com.vhall.base.IVHWatchCallBack;
 import com.vhall.classsdk.VHClass;
 import com.vhall.classsdk.WatchLive;
 import com.vhall.classsdk.demo.utils.CommonUtils;
 import com.vhall.classsdk.demo.widget.CircleView;
-import com.vhall.watchlive.play.BasicVideoPlayer;
-import com.vhall.watchlive.play.IVideoPlayer;
+import com.vhall.player.Constants;
+import com.vhall.player.VHPlayerListener;
+import com.vhall.player.stream.play.IVHVideoPlayer;
+import com.vhall.player.stream.play.impl.VHVideoPlayerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +31,7 @@ public class WatchLiveFragment extends Fragment implements View.OnClickListener 
     public static final String TAG = WatchLiveFragment.class.getName();
     private CountDownTimer onHandDownTimer;
     private Context mContext;
-    private BasicVideoPlayer player;
+    private VHVideoPlayerView player;
     private ImageView mImagePlayer;
     private ImageView mDrawMode, mBack;
     private CircleView mHand;
@@ -39,8 +39,8 @@ public class WatchLiveFragment extends Fragment implements View.OnClickListener 
     private LinearLayout mLinearButtonContainer;
 
     private WatchLive vhClassLive;
-    private int[] drawModes = new int[]{IVideoPlayer.DRAW_MODE_NONE, IVideoPlayer.DRAW_MODE_ASPECTFIT, IVideoPlayer.DRAW_MODE_ASPECTFILL};
-    private int drawMode = IVideoPlayer.DRAW_MODE_ASPECTFIT;
+    private int[] drawModes = new int[]{IVHVideoPlayer.DRAW_MODE_NONE, IVHVideoPlayer.DRAW_MODE_ASPECTFIT, IVHVideoPlayer.DRAW_MODE_ASPECTFILL};
+    private int drawMode = IVHVideoPlayer.DRAW_MODE_ASPECTFIT;
     private int durationSec = 30; // 举手上麦倒计时
 
     public static WatchLiveFragment newInstance() {
@@ -78,13 +78,12 @@ public class WatchLiveFragment extends Fragment implements View.OnClickListener 
             mHand.setVisibility(View.VISIBLE);
         } else
             mHand.setVisibility(View.GONE);
+
         WatchLive.Builder builder = new WatchLive.Builder();
         builder.videoPlayer(player)
-                .defaultDPI(IVHPlayer.DPI_SAME)
                 .connectTimeout(10000)
-                .callback(new LiveCallback());
-        vhClassLive = builder.build(mContext);
-        vhClassLive.setDrawMode(IVideoPlayer.DRAW_MODE_ASPECTFIT);
+                .listener(new LiveCallback());
+        vhClassLive = builder.build();
         vhClassLive.start();
     }
 
@@ -92,14 +91,14 @@ public class WatchLiveFragment extends Fragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.image_play:
-                if (vhClassLive.getPlaying()) {
+                if (vhClassLive.isPlaying()) {
                     vhClassLive.stop();
                 } else
                     vhClassLive.start();
                 break;
             case R.id.switch_draw_mode://设置观看模式
                 drawMode = drawModes[(++drawMode) % drawModes.length];
-                vhClassLive.setDrawMode(drawMode);
+                player.setDrawMode(drawMode);
                 break;
             case R.id.watch_live_openhand: // 举手
                 sendHandMsg();
@@ -112,7 +111,7 @@ public class WatchLiveFragment extends Fragment implements View.OnClickListener 
 
     private void sendHandMsg() {
         if (durationSec == 30) {
-            vhClassLive.hand(new VHClass.RequestCallback() {
+            VHClass.getInstance().hand(new VHClass.RequestCallback() {
                 @Override
                 public void onSuccess() {
                     startDownTimer(durationSec);
@@ -144,16 +143,6 @@ public class WatchLiveFragment extends Fragment implements View.OnClickListener 
         }.start();
     }
 
-    public void setWatchStatus(int status) {
-        switch (status) {
-            case IVHPlayer.EVENT_STATUS_STARTED:
-                mImagePlayer.setImageResource(R.mipmap.vhall_icon_live_pause);
-                break;
-            case IVHPlayer.EVENT_STATUS_STOPED:
-                mImagePlayer.setImageResource(R.mipmap.vhall_icon_live_play);
-                break;
-        }
-    }
 
     public void setDownBuffer(String buffer) {
         mDownLoad.setText(buffer);
@@ -165,7 +154,7 @@ public class WatchLiveFragment extends Fragment implements View.OnClickListener 
      * 在接收到老师的邀请后允许拒绝
      */
     public void sendRefuseCmd() {
-        vhClassLive.sendRefuseCmd(new VHClass.RequestCallback() {
+        VHClass.getInstance().sendRefuseCmd(new VHClass.RequestCallback() {
             @Override
             public void onSuccess() {
 
@@ -189,21 +178,29 @@ public class WatchLiveFragment extends Fragment implements View.OnClickListener 
 
     }
 
-    public class LiveCallback implements IVHWatchCallBack {
+    public class LiveCallback implements VHPlayerListener {
+
+        @Override
+        public void onStateChanged(Constants.State state) {
+            switch (state){
+                case START:
+                    player.setDrawMode(IVHVideoPlayer.DRAW_MODE_ASPECTFIT);
+                    mImagePlayer.setImageResource(R.mipmap.vhall_icon_live_pause);
+                    break;
+                case STOP:
+                case END:
+                    mImagePlayer.setImageResource(R.mipmap.vhall_icon_live_play);
+                    break;
+
+            }
+        }
 
         @Override
         public void onEvent(int event, String msg) {
             Log.e(TAG, "event = " + event + " msg = " + msg);
             switch (event) {
-                case IVHPlayer.EVENT_STATUS_STARTING:
-                    break;
-                case IVHPlayer.EVENT_STATUS_STARTED:
-                    setWatchStatus(IVHPlayer.EVENT_STATUS_STARTED);
-                    break;
-                case IVHPlayer.EVENT_STATUS_STOPED:
-                    setWatchStatus(IVHPlayer.EVENT_STATUS_STOPED);
-                    break;
-                case IVHPlayer.EVENT_SUPPORT_DPI://当前可用的分辨率
+
+                case Constants.Event.EVENT_DPI_LIST://当前可用的分辨率
                     Log.e(TAG, "DPI:" + msg);
                     try {
                         JSONArray array = new JSONArray(msg);
@@ -214,21 +211,21 @@ public class WatchLiveFragment extends Fragment implements View.OnClickListener 
                                 ImageView imageView = new ImageView(getContext());
                                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(CommonUtils.dp2px(mContext, 35), CommonUtils.dp2px(mContext, 35));
                                 imageView.setLayoutParams(layoutParams);
-                                if (dpi.equals(IVHPlayer.DPI_SAME)) {
+                                if (dpi.equals(Constants.Rate.DPI_SAME)) {
                                     imageView.setImageResource(R.mipmap.vhall_icon_resolution);
                                     imageView.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            vhClassLive.setDPI(IVHPlayer.DPI_SAME);
+                                            vhClassLive.setDPI(Constants.Rate.DPI_SAME);
                                         }
                                     });
-                                } else if (dpi.equals(IVHPlayer.DPI_LDR)) {
+                                } else if (dpi.equals(Constants.Rate.DPI_SD)) {
                                     imageView.setImageResource(R.mipmap.vhall_icon_resolution_sd);
-                                } else if (dpi.equals(IVHPlayer.DPI_SDR)) {
+                                } else if (dpi.equals(Constants.Rate.DPI_HD)) {
                                     imageView.setImageResource(R.mipmap.vhall_icon_resolution_hd);
-                                } else if (dpi.equals(IVHPlayer.DPI_HDR)) {
+                                } else if (dpi.equals(Constants.Rate.DPI_XHD)) {
                                     imageView.setImageResource(R.mipmap.vhall_icon_resolution_uhd);
-                                } else if (dpi.equals(IVHPlayer.DPI_AUDIO)) {
+                                } else if (dpi.equals(Constants.Rate.DPI_AUDIO)) {
                                     imageView.setImageResource(R.mipmap.icon_audio_open);
                                 }
                                 mLinearButtonContainer.addView(imageView);
@@ -238,22 +235,22 @@ public class WatchLiveFragment extends Fragment implements View.OnClickListener 
                         e.printStackTrace();
                     }
                     break;
-                case IVHPlayer.EVENT_DPI_CHANGED:
+                case Constants.Event.EVENT_DPI_CHANGED:
                     showToast(" DPI : " + msg);
                     break;
-                case IVHPlayer.EVENT_VIDEO_SIZE_CHANGED: //获取到视频的尺寸
+                case Constants.Event.EVENT_VIDEO_SIZE_CHANGED: //获取到视频的尺寸
                     break;
-                case IVHPlayer.EVENT_DOWNLOAD_SPEED:
+                case Constants.Event.EVENT_DOWNLOAD_SPEED:
                     setDownBuffer(msg + "kb/s");
                     break;
             }
         }
 
         @Override
-        public void onError(int errorCode, String errorMsg) {
-            switch (errorCode) {
-                case IVHPlayer.ERROR_CONNECT:
-                    showToast("ERROR : " + errorMsg);
+        public void onError(int i, int i1, String s) {
+            switch (i) {
+                case Constants.ErrorCode.ERROR_CONNECT:
+                    showToast("ERROR : " + s);
                     break;
             }
         }
