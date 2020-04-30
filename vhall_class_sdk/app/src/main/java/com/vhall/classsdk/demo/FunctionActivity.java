@@ -9,14 +9,14 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.vhall.classsdk.ClassCallback;
-import com.vhall.classsdk.Constant;
 import com.vhall.classsdk.VHClass;
 import com.vhall.classsdk.WatchRTC;
 import com.vhall.classsdk.demo.widget.CheckInterDialog;
+import com.vhall.classsdk.interfaces.ClassCallback;
 import com.vhall.classsdk.service.ChatServer;
 import com.vhall.classsdk.service.IConnectService;
 import com.vhall.classsdk.service.MessageServer;
+import com.vhall.classsdk.utils.Constant;
 
 public class FunctionActivity extends AppCompatActivity {
     private static final String TAG = "FunctionActivity";

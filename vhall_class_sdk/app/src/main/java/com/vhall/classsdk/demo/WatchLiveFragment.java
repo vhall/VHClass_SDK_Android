@@ -18,6 +18,7 @@ import com.vhall.classsdk.VHClass;
 import com.vhall.classsdk.WatchLive;
 import com.vhall.classsdk.demo.utils.CommonUtils;
 import com.vhall.classsdk.demo.widget.CircleView;
+import com.vhall.classsdk.interfaces.RequestCallback;
 import com.vhall.player.Constants;
 import com.vhall.player.VHPlayerListener;
 import com.vhall.player.stream.play.IVHVideoPlayer;
@@ -111,7 +112,7 @@ public class WatchLiveFragment extends Fragment implements View.OnClickListener 
 
     private void sendHandMsg() {
         if (durationSec == 30) {
-            VHClass.getInstance().hand(new VHClass.RequestCallback() {
+            VHClass.getInstance().hand(new RequestCallback() {
                 @Override
                 public void onSuccess() {
                     startDownTimer(durationSec);
@@ -154,7 +155,7 @@ public class WatchLiveFragment extends Fragment implements View.OnClickListener 
      * 在接收到老师的邀请后允许拒绝
      */
     public void sendRefuseCmd() {
-        VHClass.getInstance().sendRefuseCmd(new VHClass.RequestCallback() {
+        VHClass.getInstance().sendRefuseCmd(new RequestCallback() {
             @Override
             public void onSuccess() {
 

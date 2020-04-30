@@ -5,8 +5,8 @@ import android.content.Context;
 import android.os.Build;
 import android.util.Log;
 
-import com.vhall.classsdk.Constant;
 import com.vhall.classsdk.VHClass;
+import com.vhall.classsdk.utils.Constant;
 
 /**
  * 微吼课堂Demo主Application类

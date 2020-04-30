@@ -7,6 +7,24 @@
 2、将AAR引用自己工程下的App中的Libs 并更新Gradle
 
 ## 版本更新信息：
+### V2.1.0 更新时间：20200430
+1、升级glide依赖版本到4.9.0；   
+2、升级互动功能，支持美颜；  
+   
+```
+//删除stream.setRenderView()；替换方法如下
+stream.removeAllRenderView();
+stream.addRenderView(renderView);
+//美颜设置，仅本地流可用
+localStream.setEnableBeautify(true);//默认等级2
+//美颜等级设置，建议渲染可见后使用
+//localStream.setBeautifyLevel(2);//美颜等级1-4 默认 2
+```  
+3、升级直播点播播放器，优化观看体验；   
+4、接口RequestCallback 位置变更、去掉VHClass 重新引入   
+5、其他类位置并更，删除旧引用，重新引用即可
+
+
 ### v2.0.1 更新时间： 20200306
 1、修复日志上报数据异常；
 

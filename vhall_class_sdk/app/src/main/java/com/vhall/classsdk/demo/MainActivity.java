@@ -16,8 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vhall.classsdk.ClassInfo;
-import com.vhall.classsdk.Constant;
 import com.vhall.classsdk.VHClass;
+import com.vhall.classsdk.interfaces.ClassInfoCallback;
+import com.vhall.classsdk.interfaces.RequestCallback;
+import com.vhall.classsdk.utils.Constant;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Demo";
@@ -164,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         loading = true;
-        VHClass.getInstance().getClassInfo(mClassId, ClassApplication.device, new VHClass.ClassInfoCallback() {
+        VHClass.getInstance().getClassInfo(mClassId, ClassApplication.device, new ClassInfoCallback() {
             @Override
             public void onSuccess(ClassInfo.Webinar webinar) {
                 webinarInfo = webinar;
@@ -196,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         loading = true;
-        VHClass.getInstance().joinClass(mClassId, ClassApplication.device, nickname, pwd, new VHClass.RequestCallback() {
+        VHClass.getInstance().joinClass(mClassId, ClassApplication.device, nickname, pwd,null,null,null, new RequestCallback() {
             @Override
             public void onSuccess() {
                 loading = false;
@@ -211,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "" + errorMsg, Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     private void showPage(int page) {

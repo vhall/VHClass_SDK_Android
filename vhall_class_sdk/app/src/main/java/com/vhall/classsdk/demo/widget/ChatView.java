@@ -22,6 +22,7 @@ import com.vhall.classsdk.demo.R;
 import com.vhall.classsdk.demo.utils.emoji.InputUser;
 import com.vhall.classsdk.demo.utils.emoji.InputView;
 import com.vhall.classsdk.demo.utils.emoji.KeyBoardManager;
+import com.vhall.classsdk.interfaces.RequestCallback;
 import com.vhall.classsdk.service.ChatServer;
 
 import java.util.ArrayList;
@@ -105,7 +106,7 @@ public class ChatView extends RelativeLayout implements View.OnClickListener {
     }
 
     public void send(String msg) {
-        VHClass.getInstance().sendChat(msg, new VHClass.RequestCallback() {
+        VHClass.getInstance().sendChat(msg, new RequestCallback() {
             @Override
             public void onSuccess() {
                 Toast.makeText(context, "发送成功", Toast.LENGTH_SHORT).show();

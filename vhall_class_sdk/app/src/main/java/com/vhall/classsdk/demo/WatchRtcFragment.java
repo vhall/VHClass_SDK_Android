@@ -13,14 +13,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.vhall.classsdk.ClassCallback;
 import com.vhall.classsdk.ClassInfo;
 import com.vhall.classsdk.VHClass;
 import com.vhall.classsdk.WatchRTC;
 import com.vhall.classsdk.demo.utils.CommonUtils;
+import com.vhall.classsdk.interfaces.ClassCallback;
+import com.vhall.classsdk.interfaces.RequestCallback;
 import com.vhall.classsdk.service.IConnectService;
 import com.vhall.classsdk.service.MessageServer;
-import com.vhall.push.IVHCapture;
 import com.vhall.vhallrtc.client.Room;
 import com.vhall.vhallrtc.client.Stream;
 import com.vhall.vhallrtc.client.VHRenderView;
@@ -84,7 +84,8 @@ public class WatchRtcFragment extends Fragment implements View.OnClickListener {
         vhRenderView.init(null, null);
         //TODO 常量定义
         localStream = vhrtc.createLocalStream(Stream.VhallFrameResolutionValue.VhallFrameResolution480x360.getValue(), "class SDK", 1);
-        vhRenderView.setStream(localStream);
+        localStream.removeAllRenderView();
+        localStream.addRenderView(vhRenderView);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         mContainer.addView(vhRenderView, 0, params);
         info = VHClass.getInstance().getInfo();
@@ -115,7 +116,7 @@ public class WatchRtcFragment extends Fragment implements View.OnClickListener {
     }
 
     private void switchAudio() {
-        vhrtc.muteAudio(hasAudio ? WatchRTC.CAMERA_DEVICE_OPEN : WatchRTC.CAMERA_DEVICE_CLOSE, VHClass.getInstance().getJoinId(), new VHClass.RequestCallback() {
+        vhrtc.muteAudio(hasAudio ? WatchRTC.CAMERA_DEVICE_OPEN : WatchRTC.CAMERA_DEVICE_CLOSE, VHClass.getInstance().getJoinId(), new RequestCallback() {
             @Override
             public void onSuccess() {
                 if (hasAudio) {
@@ -133,7 +134,7 @@ public class WatchRtcFragment extends Fragment implements View.OnClickListener {
     }
 
     private void switchVideo() {
-        vhrtc.muteVideo(hasVideo ? WatchRTC.CAMERA_DEVICE_OPEN : WatchRTC.CAMERA_DEVICE_CLOSE, VHClass.getInstance().getJoinId(), new VHClass.RequestCallback() {
+        vhrtc.muteVideo(hasVideo ? WatchRTC.CAMERA_DEVICE_OPEN : WatchRTC.CAMERA_DEVICE_CLOSE, VHClass.getInstance().getJoinId(), new RequestCallback() {
             @Override
             public void onSuccess() {
                 if (hasVideo) {
@@ -164,7 +165,8 @@ public class WatchRtcFragment extends Fragment implements View.OnClickListener {
                 int with = CommonUtils.dp2px(mContext, 120);
                 VHRenderView renderView = new VHRenderView(getContext());
                 renderView.init(null, null);
-                renderView.setStream(stream);
+                stream.removeAllRenderView();
+                stream.addRenderView(renderView);
                 renderView.setZOrderOnTop(true);
                 final RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(with, height);
                 mSubContainer.addView(renderView, 0, params);

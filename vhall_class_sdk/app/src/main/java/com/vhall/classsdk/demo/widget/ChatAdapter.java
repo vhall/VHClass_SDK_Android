@@ -9,12 +9,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.vhall.classsdk.Constant;
 import com.vhall.classsdk.VHClass;
 import com.vhall.classsdk.demo.R;
 import com.vhall.classsdk.demo.utils.emoji.EmojiUtils;
 import com.vhall.classsdk.service.ChatServer;
 import com.vhall.classsdk.service.IConnectService;
+import com.vhall.classsdk.utils.Constant;
 
 import java.util.List;
 
