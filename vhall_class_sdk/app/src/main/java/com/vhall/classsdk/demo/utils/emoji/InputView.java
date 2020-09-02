@@ -19,7 +19,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.vhall.classsdk.demo.R;
 
 import java.util.ArrayList;

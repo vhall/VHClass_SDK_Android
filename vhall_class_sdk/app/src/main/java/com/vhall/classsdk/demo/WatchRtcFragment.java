@@ -97,7 +97,7 @@ public class WatchRtcFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.inter_btn_down:
-                leave();
+                vhrtc.unpublish();
                 break;
             case R.id.image_switch_camera://切换摄像头
                 localStream.switchCamera();

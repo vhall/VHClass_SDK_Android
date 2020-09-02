@@ -39,7 +39,7 @@ public class FunctionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_function);
         showFunction(function);
         classCallback = new MyClassCallback();
-        VHClass.getInstance().addClassCallback(classCallback);//退出时必须注销监听
+        VHClass.getInstance().addClassCallback(classCallback);
     }
 
     //根据功能展示对应Fragmeng
@@ -122,6 +122,8 @@ public class FunctionActivity extends AppCompatActivity {
                     } else {
                         if (mRTCFrag != null && msgInfo.target_id.equals(VHClass.getInstance().getJoinId())) {
                             mFragmanager.beginTransaction().remove(mRTCFrag).commit();
+                            mLiveFrag = WatchLiveFragment.newInstance();
+                            mFragmanager.beginTransaction().replace(R.id.container, mLiveFrag).commit();
                         }
                     }
                     break;
@@ -147,29 +149,13 @@ public class FunctionActivity extends AppCompatActivity {
                     if (msgInfo.target_id.equals(VHClass.getInstance().getJoinId())) {
                         if (msgInfo.classStatus.equals(WatchRTC.VHCLASS_RTC_MIC_UP)) {//
                         } else { // 下麦
-                            mLiveFrag = WatchLiveFragment.newInstance();
-                            mFragmanager.beginTransaction().replace(R.id.container, mLiveFrag).commit();
+                            if (mRTCFrag != null && msgInfo.target_id.equals(VHClass.getInstance().getJoinId())) {
+                                mFragmanager.beginTransaction().remove(mRTCFrag).commit();
+                                mLiveFrag = WatchLiveFragment.newInstance();
+                                mFragmanager.beginTransaction().replace(R.id.container, mLiveFrag).commit();
+                            }
                         }
                     }
-                    break;
-                case MessageServer.EVENT_CLEARBOARD:
-                case MessageServer.EVENT_DELETEBOARD:
-                case MessageServer.EVENT_INITBOARD:
-                case MessageServer.EVENT_PAINTBOARD:
-                    if (documentFragment != null)
-                        documentFragment.drawDocument(msgInfo);
-                    break;
-                // PPT 消息
-                case MessageServer.EVENT_CHANGEDOC://PPT翻页消息
-                case MessageServer.EVENT_CLEARDOC:
-                case MessageServer.EVENT_PAINTDOC:
-                case MessageServer.EVENT_DELETEDOC:
-                    if (documentFragment != null)
-                        documentFragment.drawDocument(msgInfo);
-                    break;
-                case MessageServer.EVENT_CLASS_DOC_SWITCH: // 文档切换   0显示文档 1显示白板
-                    if (documentFragment != null)
-                        documentFragment.switchDocumentMode(msgInfo.classStatus);
                     break;
                 case MessageServer.EVENT_CLASS_OPEN_HAND://公开课专属 , 是否举手
                     if (mLiveFrag != null)

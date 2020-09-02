@@ -253,6 +253,12 @@ public class WatchLiveFragment extends Fragment implements View.OnClickListener 
                 case Constants.ErrorCode.ERROR_CONNECT:
                     showToast("ERROR : " + s);
                     break;
+
+                case Constants.ErrorCode.ERROR_REC:
+                    showToast("ERROR : " + s);
+                    vhClassLive.start();
+                    break;
+
             }
         }
     }

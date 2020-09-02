@@ -26,6 +26,9 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
 }
 
 dependencies {
@@ -37,4 +40,5 @@ dependencies {
     api "com.github.bumptech.glide:glide:${GLIDE_VERSION}"
     api 'com.google.android.exoplayer:exoplayer-core:2.9.1'
     api 'com.google.android.exoplayer:exoplayer-hls:2.9.1'
+    implementation 'com.tencent:mmkv-static:1.2.2'
 }

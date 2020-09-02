@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tencent.mmkv.MMKV;
 import com.vhall.classsdk.ClassInfo;
 import com.vhall.classsdk.VHClass;
 import com.vhall.classsdk.interfaces.ClassInfoCallback;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private RadioGroup mFunctionsGroupView;
     private ClassInfo.Webinar webinarInfo;
     private Button mCommitView;
+    private MMKV mv;
     public String[] permissions = new String[]{
             Manifest.permission.CAMERA,
             Manifest.permission.RECORD_AUDIO,
@@ -69,9 +71,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-//        mRoomidView.setText("");
-//        mPwdView.setText("");
-//        mNicknameView.setText("");
+
+        mv = MMKV.defaultMMKV();
+
+        mRoomidView.setText(mv.decodeString("CLASS_ID", "")); //edu_52d5538e  edu_85145fdc    最新：edu_c55b26c0
+        mPwdView.setText(mv.decodeString("PASSWORD", "")); // 780103   782918    最新学员：943549
+        mNicknameView.setText(mv.decodeString("USER_NAME", ""));
         showPage(PAGE_ROOM);
         mCommitView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         loading = true;
+        mv.encode("CLASS_ID", mClassId);
         VHClass.getInstance().getClassInfo(mClassId, ClassApplication.device, new ClassInfoCallback() {
             @Override
             public void onSuccess(ClassInfo.Webinar webinar) {
@@ -198,7 +204,9 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         loading = true;
-        VHClass.getInstance().joinClass(mClassId, ClassApplication.device, nickname, pwd,null,null,null, new RequestCallback() {
+        mv.encode("PASSWORD", pwd);
+        mv.encode("USER_NAME", nickname);
+        VHClass.getInstance().joinClass(mClassId, ClassApplication.device, nickname, pwd,new RequestCallback() {
             @Override
             public void onSuccess() {
                 loading = false;
@@ -213,7 +221,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "" + errorMsg, Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     private void showPage(int page) {
@@ -243,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void refushBaseData() {
         mRoomNameView.setText(webinarInfo.subject);
-        switch (webinarInfo.status) {
+        switch (webinarInfo.type) {
             case MainActivity.CLASS_STATUS_START:// 上课中
                 mRoomStatusView.setText("上课中");
                 break;

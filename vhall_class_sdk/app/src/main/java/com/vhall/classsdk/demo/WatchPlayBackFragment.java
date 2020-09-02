@@ -29,7 +29,9 @@ import org.json.JSONException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.vhall.player.Constants.*;
+import static com.vhall.player.Constants.Event;
+import static com.vhall.player.Constants.Rate;
+import static com.vhall.player.Constants.State;
 
 public class WatchPlayBackFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = "WatchBackActivity";
@@ -88,6 +90,7 @@ public class WatchPlayBackFragment extends Fragment implements View.OnClickListe
         mLinearButtonContainer = rootView.findViewById(R.id.linear_button_container_back);
         mBack = rootView.findViewById(R.id.back);
         mBack.setOnClickListener(this);
+        VhallLiveApi.EnableDebug(true);
         return rootView;
     }
 
