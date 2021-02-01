@@ -3,6 +3,7 @@ package com.vhall.classsdk.demo;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.tencent.mmkv.MMKV;
@@ -25,8 +26,11 @@ public class ClassApplication extends Application {
         device = Build.BOARD + Build.DEVICE + Build.SERIAL;//SERIAL  串口序列号 保证唯一值
         Log.e(Constant.TAG, " device = " + device);
         context = this;
-
-        VHClass.getInstance().init(context, "", "");
+        //填入appid   需要在课堂sdk 初始化之前执行
+        Bundle bundle = new Bundle();
+        bundle.putString("app_id","your_appId");
+        VHClass.getInstance().initExtra(bundle);
+        VHClass.getInstance().init(context, "your_appkey", "your_scretkey");
     }
 
 }

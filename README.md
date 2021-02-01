@@ -5,7 +5,28 @@
 
 1、获取Demo中libs中的AAR包  
 2、将AAR引用自己工程下的App中的Libs 并更新Gradle
+3、引入方式修改maven引入  2021/02/01
+在项目的gradle文件中添加  
+	allprojects {  
+    repositories {  
+        google()  
+        jcenter() 
+        maven { url 'https://dl.bintray.com/tiandiyinghun/maven' }
+    }
+}  
+在项目的gradle中添加  
+添加  api 'com.vhall.android.class:vhallyun-class:3.6.0'  
 
+## 版本更新信息：
+### v3.6.0 更新时间： 20210201
+1、消息优化  
+2、增加sdk稳定性  
+3、传统的aar 引入修改为 maven 引入方式 (见集成方式)   
+4，增加appid初始化（需在sdk初始化之前调用）  
+	   //填入appid  
+        Bundle bundle = new Bundle();  
+        bundle.putString("app_id","your_appId");  
+        VHClass.getInstance().initExtra(bundle);  	
 ## 版本更新信息：
 ### V3.0.0 更新时间：20200902
 1、兼容h5模式课堂
@@ -28,8 +49,6 @@ localStream.setEnableBeautify(true);//默认等级2
 3、升级直播点播播放器，优化观看体验；   
 4、接口RequestCallback 位置变更、去掉VHClass 重新引入   
 5、其他类位置并更，删除旧引用，重新引用即可
-
-
 ### v2.0.1 更新时间： 20200306
 1、修复日志上报数据异常；
 
