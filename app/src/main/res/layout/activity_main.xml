@@ -136,5 +136,15 @@
         android:layout_marginTop="20dp"
         android:text="@string/enter" />
 
+    <TextView
+        android:id="@+id/sdk_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        />
+
 
 </RelativeLayout>
