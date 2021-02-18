@@ -15,18 +15,14 @@
     }
 }  
 在项目的gradle中添加  
-添加  api 'com.vhall.android.class:vhallyun-class:3.6.0'  
+添加  api 'com.vhall.android.class:vhallyun-class:3.6.2'
 
 ## 版本更新信息：
-### v3.6.0 更新时间： 20210201
+### v3.6.0 更新时间： 20210218
 1、消息优化  
 2、增加sdk稳定性  
-3、传统的aar 引入修改为 maven 引入方式 (见集成方式)   
-4，增加appid初始化（需在sdk初始化之前调用）  
-	   //填入appid  
-        Bundle bundle = new Bundle();  
-        bundle.putString("app_id","your_appId");  
-        VHClass.getInstance().initExtra(bundle);  	
+3、传统的aar 引入修改为 maven 引入方式 (见集成方式)
+
 ## 版本更新信息：
 ### V3.0.0 更新时间：20200902
 1、兼容h5模式课堂
