@@ -15,7 +15,11 @@
     }
 }  
 在项目的gradle中添加  
-添加  api 'com.vhall.android.class:vhallyun-class:3.6.2'
+添加  api 'com.vhall.android.class:vhallyun-class:3.6.3'
+
+## 版本更新信息：
+### v3.6.3 更新时间： 20210222
+远程库更新到3.6.3
 
 ## 版本更新信息：
 ### v3.6.0 更新时间： 20210218
