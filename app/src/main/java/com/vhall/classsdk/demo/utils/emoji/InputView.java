@@ -6,7 +6,6 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.ViewPager;
 import android.text.InputFilter;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -18,6 +17,9 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+
+import androidx.viewpager.widget.ViewPager;
 
 import com.vhall.classsdk.demo.R;
 

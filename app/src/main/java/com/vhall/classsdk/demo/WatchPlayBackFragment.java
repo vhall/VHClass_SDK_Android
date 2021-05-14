@@ -1,11 +1,10 @@
 package com.vhall.classsdk.demo;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
@@ -13,13 +12,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.vhall.classsdk.WatchVod;
 import com.vhall.classsdk.demo.utils.CommonUtils;
+import com.vhall.classsdk.widget.DocumentView;
 import com.vhall.jni.VhallLiveApi;
+import com.vhall.ops.VHOPS;
 import com.vhall.player.Constants;
 import com.vhall.player.VHPlayerListener;
 
@@ -29,9 +34,7 @@ import org.json.JSONException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.vhall.player.Constants.Event;
-import static com.vhall.player.Constants.Rate;
-import static com.vhall.player.Constants.State;
+import static com.vhall.player.Constants.*;
 
 public class WatchPlayBackFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = "WatchBackActivity";
@@ -44,9 +47,13 @@ public class WatchPlayBackFragment extends Fragment implements View.OnClickListe
     private WatchVod watchPlayBack;
     private Timer timer;
     private LinearLayout mLinearButtonContainer;
+    private DocumentView mVHOps;
+    private RelativeLayout documentContainer;
 
     private long mCurrentPosition = 0L;
     private long mBufferPosition = 0L;
+
+    private com.vhall.document.DocumentView mDocument;//文档
 
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
@@ -58,6 +65,9 @@ public class WatchPlayBackFragment extends Fragment implements View.OnClickListe
                         mSeekbar.setProgress((int) mCurrentPosition);
                         mBufferPosition = watchPlayBack.getBufferPosition();
                         mSeekbar.setSecondaryProgress((int) mBufferPosition);
+                        if (mVHOps != null) {
+                            mVHOps.updateTime(mCurrentPosition);
+                        }
                     }
                     break;
             }
@@ -91,6 +101,33 @@ public class WatchPlayBackFragment extends Fragment implements View.OnClickListe
         mBack = rootView.findViewById(R.id.back);
         mBack.setOnClickListener(this);
         VhallLiveApi.EnableDebug(true);
+        documentContainer = rootView.findViewById(R.id.document_container);
+
+        mVHOps = new DocumentView(getContext());
+        mVHOps.setEventListener(new DocumentView.EventListener() {
+            @Override
+            public void onShow() {
+                if (mVHOps != null && mVHOps.getActiveView() != null && mVHOps.getActiveView().getParent() == null) {
+                    documentContainer.removeAllViews();
+                    View mDocView = mVHOps.getActiveView();
+                    if(mDocView instanceof com.vhall.document.DocumentView){
+                        mDocument = (com.vhall.document.DocumentView) mDocView;
+                    }
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    params.addRule(RelativeLayout.CENTER_IN_PARENT);
+                    documentContainer.addView(mDocView, params);
+                    documentContainer.setBackgroundColor(Color.rgb(226,232,235));
+                }
+            }
+
+            @Override
+            public void onDestroy() {
+                if (documentContainer.getChildCount() > 0) {
+                    documentContainer.removeAllViews();
+                }
+            }
+
+        });
         return rootView;
     }
 
@@ -195,7 +232,15 @@ public class WatchPlayBackFragment extends Fragment implements View.OnClickListe
         @Override
         public void onEvent(int event, String msg) {
             switch (event) {
-
+                case Event.EVENT_INIT_SUCCESS:
+                    if (mVHOps != null) {
+                        mVHOps.setCue_point(watchPlayBack.getCurePoint());
+                    }
+//                case Event.EVENT_CUE_POINT:
+//                    if (mVHOps != null) {
+//                        mVHOps.setCue_point(msg);
+//                    }
+//                    break;
                 //维护Event状态
                 case Event.EVENT_DPI_CHANGED: // 每当回调次Event 播放器重新播放数据源地址并切换分辨率
                     Log.e(TAG, "EVENT_DPI_CHANGED = " + msg);

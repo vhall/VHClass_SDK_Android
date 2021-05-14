@@ -3,8 +3,6 @@ package com.vhall.classsdk.demo;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.vhall.classsdk.VHClass;
 import com.vhall.classsdk.WatchLive;
@@ -54,9 +54,8 @@ public class WatchLiveFragment extends Fragment implements View.OnClickListener 
         this.mContext = context;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_watch_live, null);
         player = view.findViewById(R.id.player);
         mImagePlayer = view.findViewById(R.id.image_play);
@@ -73,7 +72,7 @@ public class WatchLiveFragment extends Fragment implements View.OnClickListener 
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (VHClass.getInstance().getIsHand()) {
             mHand.setVisibility(View.VISIBLE);

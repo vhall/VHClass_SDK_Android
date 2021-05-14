@@ -4,8 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -15,8 +13,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import com.tencent.mmkv.MMKV;
-import com.vhall.classsdk.BuildConfig;
 import com.vhall.classsdk.ClassInfo;
 import com.vhall.classsdk.VHClass;
 import com.vhall.classsdk.interfaces.ClassInfoCallback;
@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
     private ClassInfo.Webinar webinarInfo;
     private Button mCommitView;
     private MMKV mv;
-    private TextView sdk_desc;
     public String[] permissions = new String[]{
             Manifest.permission.CAMERA,
             Manifest.permission.RECORD_AUDIO,
@@ -76,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
         mv = MMKV.defaultMMKV();
 
-        mRoomidView.setText(mv.decodeString("CLASS_ID", "")); //edu_52d5538e  edu_85145fdc    最新：edu_c55b26c0
-        mPwdView.setText(mv.decodeString("PASSWORD", "")); // 780103   782918    最新学员：943549
+        mRoomidView.setText(mv.decodeString("CLASS_ID", ""));
+        mPwdView.setText(mv.decodeString("PASSWORD", ""));
         mNicknameView.setText(mv.decodeString("USER_NAME", ""));
         showPage(PAGE_ROOM);
         mCommitView.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         requestPermission();
-        sdk_desc.setText(String.format("Class Sdk version: %s", BuildConfig.VERSION_NAME));
     }
 
     private void requestPermission() {
@@ -140,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
         mFunctionsView = findViewById(R.id.ll_functions);
         mCommitView = findViewById(R.id.commit);
         mFunctionsGroupView = findViewById(R.id.rg_fuc);
-        sdk_desc = findViewById(R.id.sdk_desc);
         mFunctionsGroupView.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -197,11 +194,11 @@ public class MainActivity extends AppCompatActivity {
             return;
         String pwd = mPwdView.getText().toString();
         String nickname = mNicknameView.getText().toString();
-        if (TextUtils.isEmpty(pwd)) {
-            mPwdView.setError("请输入口令");
-            mPwdView.requestFocus();
-            return;
-        }
+//        if (TextUtils.isEmpty(pwd)) {
+//            mPwdView.setError("请输入口令");
+//            mPwdView.requestFocus();
+//            return;
+//        }
         if (TextUtils.isEmpty(nickname)) {
             mNicknameView.setError("请输入昵称");
             mNicknameView.requestFocus();

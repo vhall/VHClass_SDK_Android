@@ -8,7 +8,9 @@ import android.util.Log;
 
 import com.tencent.mmkv.MMKV;
 import com.vhall.classsdk.VHClass;
+import com.vhall.classsdk.VHClassConstants;
 import com.vhall.classsdk.utils.Constant;
+import com.vhall.framework.VhallSDK;
 
 /**
  * 微吼课堂Demo主Application类
@@ -27,7 +29,7 @@ public class ClassApplication extends Application {
         Log.e(Constant.TAG, " device = " + device);
         context = this;
 
-        VHClass.getInstance().init(context, "your_appkey", "your_scretkey");
+        VHClass.getInstance().init(this, "APP_KEY", "APP_SECRET_KEY");
     }
 
 }

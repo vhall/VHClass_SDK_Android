@@ -93,6 +93,20 @@ public class ChatAdapter extends BaseAdapter {
                             dataSourceViewHolder.image_chat_role.setImageResource(R.drawable.vhall_class_techer);
                             dataSourceViewHolder.tv_chat_content.setText(EmojiUtils.getEmojiText(context, data.msgData.text), TextView.BufferType.SPANNABLE);
                             dataSourceViewHolder.tv_chat_name.setText(data.user_name);
+                        } else if (dataSourceList.get(position).role == Constant.USER_ROLE_ASSISTANT) { // 助理
+                            dataSourceViewHolder.mContainer.setVisibility(View.VISIBLE);
+                            dataSourceViewHolder.mContainerSelf.setVisibility(View.GONE);
+                            dataSourceViewHolder.image_chat_role.setVisibility(View.VISIBLE);
+                            dataSourceViewHolder.image_chat_role.setImageResource(R.drawable.ic_chat_assistant);
+                            dataSourceViewHolder.tv_chat_content.setText(EmojiUtils.getEmojiText(context, data.msgData.text), TextView.BufferType.SPANNABLE);
+                            dataSourceViewHolder.tv_chat_name.setText(data.user_name);
+                        } else if (dataSourceList.get(position).role == Constant.USER_ROLE_GUEST) { // 嘉宾
+                            dataSourceViewHolder.mContainer.setVisibility(View.VISIBLE);
+                            dataSourceViewHolder.mContainerSelf.setVisibility(View.GONE);
+                            dataSourceViewHolder.image_chat_role.setVisibility(View.VISIBLE);
+                            dataSourceViewHolder.image_chat_role.setImageResource(R.drawable.vhall_class_guest);
+                            dataSourceViewHolder.tv_chat_content.setText(EmojiUtils.getEmojiText(context, data.msgData.text), TextView.BufferType.SPANNABLE);
+                            dataSourceViewHolder.tv_chat_name.setText(data.user_name);
                         } else if (dataSourceList.get(position).role == Constant.USER_ROLE_STUDENT) {
                             if (dataSourceList.get(position).userId.equals(VHClass.getInstance().getJoinId())) {// 学生 自己
                                 dataSourceViewHolder.mContainer.setVisibility(View.GONE);

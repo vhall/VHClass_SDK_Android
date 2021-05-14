@@ -11,11 +11,17 @@
     repositories {  
         google()  
         jcenter() 
-        maven { url 'https://dl.bintray.com/tiandiyinghun/maven' }
+        maven { url 'https://s01.oss.sonatype.org/content/repositories/releases/'}
     }
 }  
 在项目的gradle中添加  
-添加  api 'com.vhall.android.class:vhallyun-class:3.6.3'
+添加  api 'com.github.vhall.android.library:vhallyun-class:3.7.0'
+
+## 版本更新信息：
+### v3.7.0 更新时间： 20210514
+1.远程库更新到3.7.0
+2.增加回放+文档demo
+3.修复部分已知bug
 
 ## 版本更新信息：
 ### v3.6.3 更新时间： 20210222
